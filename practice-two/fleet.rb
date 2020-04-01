@@ -14,6 +14,7 @@ class Fleet
         add(Auto.new(ruby_objects[kol]['mark'],ruby_objects[kol]['model'],ruby_objects[kol]['year'],ruby_objects[kol]['consumption']))
         kol=kol+1
      end
+    
     end
     def average_consumption ()
         kol=0
