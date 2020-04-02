@@ -63,7 +63,7 @@ end
   # png.line_xiaolin_wu(0+number, 49, 0+number, 51, stroke_color=ChunkyPNG::Color::BLACK, inclusive = true)
   # end
   object.each_with_index do |number,index|
-    png.compose_pixel(50+object[index].real,50- object[index].imaginary, color= ChunkyPNG::Color::BLACK)
+    png.compose_pixel(50+object[index].real,50- object[index].imaginary, color= ChunkyPNG::Color(0x7b0f34FF))
   end
 
   png.save('filename.png', :interlace => true)

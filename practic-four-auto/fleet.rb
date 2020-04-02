@@ -6,6 +6,9 @@ class Fleet
     @cars = []
   end
 
+  def getCars()
+    @cars
+  end
   def add(car)
     @cars.push(car)
   end
