@@ -1,0 +1,29 @@
+<!doctype html>
+<html class="no-js" lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт выводящий список треугольников</title>
+    <link rel="stylesheet" href="/css/foundation.css">
+  </head>
+  <body>
+    <ul class="menu">
+    <li><a href="index">Главная страница</a></li>
+    <li><a href="#">Two</a></li>
+    <li><a href="#">Three</a></li>
+    <li><a href="#">Four</a></li>
+    </ul>
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+          <h2>Список треугольников</h2>
+        </div>
+      </div>
+      <%= yield %>
+    </div>
+    <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/vendor/what-input.js"></script>
+    <script src="/js/vendor/foundation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+        <div class="grid-x grid-padding-x">
+            <form method="get">
+                <% unless @params[:error].empty? %>
+                <div class="large-12 cell callout warning">
+                    <p>
+                    Параметры фильтра введены неверно, данные не были отфильтрованы
+                    </p>
+                    <ul>
+                    <% @params[:error].each do |error| %> 
+                        <li><%= error %></li>
+                    <% end %>
+                    </ul>
+                </div>
+                <% end %>
+                <div class="large-6 cell">
+                    <label>Минимальная площаль
+                        <input type="text" placeholder="20" name="min" value="<%= @params[:min] %>">
+                    </label>
+                </div>
+                <div class="large-6 cell">
+                    <label>Максимальная площадь
+                        <input type="text" placeholder="30" name="max" value="<%= @params[:max] %>">
+                    </label>
+                </div>
+                <div class="large-12 cell">
+                    <input type="submit" value="Фильтровать" class="button">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="large-12 cell">
+        <% if @filter_triangle.empty? %>
+            <div class="callout">
+                Согласно вашему фильтру никаких тестов не было найдено
+            </div>
+        <% else %>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Первая сторона</th>
+                    <th>Вторая сторона</th>
+                    <th>Третья сторона</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @filter_triangle.each do |triangle| %>
+                    <tr>
+                        <td><%= triangle.line_one %></td>
+                        <td><%= triangle.line_two %></td>
+                        <td><%= triangle.line_three %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
+    </div>
+</div>
