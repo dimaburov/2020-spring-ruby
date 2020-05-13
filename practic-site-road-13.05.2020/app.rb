@@ -39,15 +39,34 @@ class App < Roda
                 end
             end
         end
-        r.on "index" do
-            @params = InputValidators.check_min_and_max(r.params['min'], r.params['max'])
-            pp @params[:error]
-            @filter_triangle = if @params[:error].empty?
-                                    opts[:index].triangles_by_area(@params[:min], @params[:max])
-                                else  
-                                    opts[:index].all_triangle
-                                end
-            view('index')
+        r.on "triangles" do
+            r.is do
+                @params = InputValidators.check_min_and_max(r.params['min'], r.params['max'])
+                pp @params[:error]
+                @filter_triangle = if @params[:error].empty?
+                                        opts[:index].triangles_by_area(@params[:min], @params[:max])
+                                    else  
+                                        opts[:index].all_triangle
+                                    end
+                view('index')
+            end
+            r.on "new" do
+                r.get do
+                    view('triangle_new')
+                  end
+                r.post do
+                    @params = InputValidators.check_side_lengths(r.params['line_one'],
+                        r.params['line_two'], r.params['line_three'])
+                    pp @params[:error]
+                    if @params[:error].empty?
+                        opts[:index].add_triangle(Triangle.new(@params[:line_one], @params[:line_two], @params[:line_three]))
+                        r.redirect '/triangles'
+                    else
+                        view('triangle_new')
+                    end
+                end
+            end
         end
+
     end
 end

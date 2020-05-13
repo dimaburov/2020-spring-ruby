@@ -37,39 +37,59 @@ module InputValidators
     end
 
 
-    def check_side_lengths(raw_line_one, raw_line_two, raw_line_three)
+    def self.check_side_lengths(raw_line_one, raw_line_two, raw_line_three)
         line_one= raw_line_one || ''
         line_two= raw_line_two || ''
         line_three= raw_line_three || ''
         error = [].concat(check_line_one(line_one))
                .concat(check_line_two(line_two))
                .concat(check_line_three(line_three))
+        # error.append["Поля должны быть с цифрами"] unless 
+        # /\d/ =~ line_one||
+        # /\d/ =~ line_two||
+        # /\d/ =~ line_three
+        pp error
         {
             line_one: line_one,
-            line_two: kine_two,
-            line_three: line+three,
+            line_two: line_two,
+            line_three: line_three,
             error: error
         }
     end
-    def check_line(line)
+    def self.check_line_one(line_one)
         if line_one.empty?
             ['Поле с размером первой стороны не может быть пустым']
-          else
+        else
             []
-          end
+        end
+        if  /\d/ =~ line_one 
+            []
+        else 
+            ['Поле с первой стороной треугольника должна быть числом']
+        end
     end
-    def check_line_two(line_two)
+    def self.check_line_two(line_two)
         if line_two.empty?
             ['Поле с размером второй стороны не может быть пустым']
           else
             []
-          end
+        end
+        if  /\d/ =~ line_two
+            []
+        else 
+            ['Поле со второй стороной треугольника должна быть числом']
+        end
     end
-    def check_line_three(line_three)
+    def self.check_line_three(line_three)
         if line_three.empty?
             ['Поле с размером третей стороны не может быть пустым']
           else
             []
           end
+          if  /\d/ =~ line_three
+            []
+        else 
+            ['Поле с третьей стороной треугольника должна быть числом']
+        end
     end
 end

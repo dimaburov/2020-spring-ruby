@@ -1,0 +1,36 @@
+<% if @params && !@params[:error].empty? %>
+  <div class="large-12 cell callout">
+    <p>При заполнении формы возникли ошибки</p>
+    <ul>
+      <% @params[:error].each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="large-12 cell">
+  <form method="post">
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+          <label>Первая сторона треугольника
+            <input type="text" placeholder="3" name="line_one" value="<%= @params && @params[:line_one] %>">
+          </label>
+        </div>
+        <div class="large-12 cell">
+          <label>Вторая сторона треугольника
+            <input type="text" placeholder="4" name="line_two" value="<%= @params && @params[:line_two] %>">
+          </label>
+        </div>
+        <div class="large-12 cell">
+          <label>Третья сторона треугольника
+            <input type="text" placeholder="5" name="line_three" value="<%= @params && @params[:line_three] %>">
+          </label>
+        </div>
+        <div class="large-12 cell">
+          <input type="submit" value="Добавить" class="button">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
