@@ -4,6 +4,7 @@ require 'roda'
 
 require_relative 'lib/diary.rb'
 require_relative 'lib/diary_list.rb'
+require_relative 'lib/input_validators.rb'
 # The core class of the web application for managing tests
 class App < Roda
   opts[:root] = __dir__
@@ -13,7 +14,7 @@ class App < Roda
     plugin :public
     opts[:serve_static] = true
   end
-  opts[:index] = DiaryList.new([ 
+  opts[:books] = DiaryList.new([
                                  Diary.new('2018-03-07', 'AAA', 'BBB'),
                                  Diary.new('2019-05-10', 'Бёрджесс', 'Заводной апельсин'),
                                  Diary.new('2020-04-05', 'Кен Кизи', 'Над кукушкиным гнездом'),
@@ -27,11 +28,24 @@ class App < Roda
     end
     r.on 'diary' do
       r.is do
-        # @params = InputValidators.check_min_and_max(r.params['min'], r.params['max'])
-        # pp @params[:error]
-        opts[:index].sort_by_data
-        @all_books = opts[:index].all_books
+        opts[:books].sort_by_data
+        @all_books = opts[:books].all_books
         view('index')
+      end
+      r.on 'new' do
+        r.get do
+          view('new_book')
+        end
+        r.post do
+          @params = InputValidators.check_side_lengths(r.params['author'],
+                                                       r.params['title'], r.params['date'])
+          if @params[:error].empty?
+            opts[:books].add_books(Diary.new(@params[:date], @params[:author], @params[:date]))
+            r.redirect '/diary'
+          else
+            view('new_book')
+          end
+        end
       end
     end
   end

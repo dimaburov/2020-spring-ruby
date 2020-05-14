@@ -2,12 +2,12 @@
 
 # class data books
 class Diary
-  def initialize(data, author, title)
-    @data = data
+  def initialize(date, author, title)
+    @date = date
     @author = author
     @title = title
   end
-  attr_reader :data
+  attr_reader :date
   attr_reader :author
   attr_reader :title
 end

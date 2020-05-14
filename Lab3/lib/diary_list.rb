@@ -21,28 +21,14 @@ class DiaryList
   end
 
   def sort_by_data
-    # arr=[]
-    # @books.map { |book|  book.data.each_line('-') { |s|  array.append(s.delete "-")}}
-    # array=@books.sort {|a,b|  a.data<=>b.data}
-    # arr= @books.sort { |a, b|  b.data.each_line('-'){ |s|  s.delete "-"}.to_i<=>a.data.each_line('-') { |s| s.delete "-"}.to_i }
-    # array=[]
-    # array= arr.sort {|a,b| b.data.each_line('-'){ |s|  s.delete "-"}.to_i<=>a.data.each_line('-') { |s| s.delete "-"}.to_i }
-    # @books.map do |book|
-    #     p array.append(book.data.slice(8..9))
-    # end
-    @books= @books.sort do |a, b| 
-        if (b.data.slice(0..3).to_i<=>a.data.slice(0..3).to_i)==0 then
-            if (b.data.slice(5..6).to_i<=>a.data.slice(5..6).to_i)==0 then
-                b.data.slice(8..9).to_i<=>a.data.slice(8..9).to_i
-            else b.data.slice(5..6).to_i<=>a.data.slice(5..6).to_i
-            end
-        else b.data.slice(0..3).to_i<=>a.data.slice(0..3).to_i
-        end 
+    @books = @books.sort do |a, b|
+      if (b.date.slice(0..3).to_i <=> a.date.slice(0..3).to_i).zero?
+        if (b.date.slice(5..6).to_i <=> a.date.slice(5..6).to_i).zero?
+          b.date.slice(8..9).to_i <=> a.date.slice(8..9).to_i
+        else b.date.slice(5..6).to_i <=> a.date.slice(5..6).to_i
+        end
+      else b.date.slice(0..3).to_i <=> a.date.slice(0..3).to_i
+      end
     end
-    p @books
-    # arr= arr.sort {|a,b| b.data.slice(5..6).to_i<=>a.data.slice(5..6).to_i}
-    # p arr
-    # arr= arr.sort {|a,b| b.data.slice(8..9).to_i<=>a.data.slice(8..9).to_i}
-    # p arr 
   end
 end
