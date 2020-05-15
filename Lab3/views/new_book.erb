@@ -1,7 +1,7 @@
 <div class="grid-x grid-padding-x">
-    <div class="large-12 cell">
+  <div class="large-12 cell">
     <h3>Добавление прочитанной книги</h3>
-    </div>
+  </div>
 </div>
 <% if @params && !@params[:error].empty? %>
   <div class="large-12 cell callout">
@@ -13,29 +13,27 @@
     </ul>
   </div>
 <% end %>
-<div class="large-12 cell">
-  <form method="post">
-        <div class="grid-container">
-        <div class="grid-x grid-padding-x">
-            <div class="large-12 cell">
-                <label>Автор произведения
-                    <input type="text" placeholder="Рей Бредбери" name="author" value="<%= @params && @params[:author] %>">
-                </label>
-            </div>
-            <div class="large-12 cell">
-                <label>Название произведения
-                    <input type="text" placeholder="Вино из одуванчиков" name="title" value="<%= @params && @params[:title] %>">
-                </label>
-            </div>
-            <div class="large-12 cell">
-                <label>Дата прочтения
-                    <input type="text" placeholder="2020-14-05" name="date" value="<%= @params && @params[:date] %>">
-                </label>
-            </div>
-            <div class="large-12 cell">
-             <input type="submit" value="Сохранить" class="button">
-            </div>
-        </div>
-        </div>
-  </form>
-</div>
+<form method="post">
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x">
+          <div class="large-12 cell">
+              <label>Автор произведения
+                  <input type="text" placeholder="Рей Бредбери" name="author" value="<%= @params && @params[:author] %>">
+              </label>
+          </div>
+          <div class="large-12 cell">
+              <label>Название произведения
+                  <input type="text" placeholder="Вино из одуванчиков" name="title" value="<%= @params && @params[:title] %>">
+              </label>
+          </div>
+          <div class="large-12 cell">
+              <label>Дата прочтения
+                  <input type="text" placeholder="2020-14-05" name="date" value="<%= @params && @params[:date] %>">
+              </label>
+          </div>
+          <div class="large-12 cell">
+            <input type="submit" value="Сохранить" class="button">
+          </div>
+      </div>
+    </div>
+</form>

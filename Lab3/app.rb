@@ -23,9 +23,7 @@ class App < Roda
                                ])
   route do |r|
     r.public if opts[:serve_static]
-    r.root do
-      r.redirect '/diary'
-    end
+    r.root { r.redirect '/diary' }
     r.on 'diary' do
       r.is do
         opts[:books].sort_by_data
@@ -40,11 +38,21 @@ class App < Roda
           @params = InputValidators.check_side_lengths(r.params['author'],
                                                        r.params['title'], r.params['date'])
           if @params[:error].empty?
-            opts[:books].add_books(Diary.new(@params[:date], @params[:author], @params[:date]))
+            opts[:books].add_books(Diary.new(@params[:date], @params[:author], @params[:title]))
             r.redirect '/diary'
           else
             view('new_book')
           end
+        end
+      end
+      r.on "statistics" do
+        r.get do
+          opts[:books].sort_by_data
+          @book_year= opts[:books].array_year
+          @params = InputValidators.check_side_year(r.params['year'])
+          # if @params[:error].empty?
+          # end
+          view('statistics')
         end
       end
     end

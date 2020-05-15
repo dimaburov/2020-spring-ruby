@@ -6,7 +6,7 @@ require_relative 'diary.rb'
 # The list of the diary
 class DiaryList
   extend Forwardable
-  def_delegator :@triangles, :each
+  def_delegator :@books, :each
 
   def initialize(book = [])
     @books = book
@@ -30,5 +30,16 @@ class DiaryList
       else b.date.slice(0..3).to_i <=> a.date.slice(0..3).to_i
       end
     end
+  end
+
+  def array_year
+    array=[]
+    year=0
+    @books.each do |book|
+     next if book.date.slice(0..3).to_i==year 
+      year= book.date.slice(0..3).to_i
+      array.append( year)
+    end
+    array
   end
 end

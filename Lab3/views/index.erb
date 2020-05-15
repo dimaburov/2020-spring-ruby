@@ -1,29 +1,30 @@
 <div class="grid-x grid-margin-x">
-  <div class="cell small-4"></div>
-  <div class="large-6 cell">
+  <div class="large-4 cell"></div>
+  <div class="large-4 cell">
         <h3>Читательский дневник</h3>
  </div>
-  <div class="cell auto"></div>
+  <div class="large-4 cell"></div>
 </div>
 <div class="grid-x grid-padding-x">
-    <form>
-        <div class="large-12 cell">
-            <a href="diary/new" class="button">Добавить прочитанную книгу</a>
-        </div>
-    </form>
+    <div class="large-3 cell">
+        <a href="diary/new" class="button">Добавить прочитанную книгу</a>
+    </div>
+    <div class="large-3 cell">
+        <a href="diary/statistics" class="button">Статистика чтения за год</a>
+    </div>
     <div class="large-12 cell">
         <table>
         <thead>
             <tr>
             <th>Дата прочтения</th>
-            <th>Автора "Название"</th>
+            <th>Автора «Название»</th>
             </tr>
         </thead>
         <tbody>
             <% @all_books.each do |book| %>
             <tr>
                 <td><%= book.date %></td>
-                <td><%= "#{book.title} '#{book.author}'" %></td>
+                <td><%= "#{book.author} «#{book.title}»" %></td>
             </tr>
             <% end %>
         </tbody>
