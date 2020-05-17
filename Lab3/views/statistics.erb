@@ -34,7 +34,27 @@
             </div>
         </div>
         <div class="large-12 cell">
-                    <input type="submit" value="Ввод" class="button">
+            <input type="submit" value="Ввод" class="button">
+        </div>
+        <% unless   @params && !@params[:error].empty? %>
+            <div class="large-12 cell">
+                <table>
+                    <thead>
+                        <tr>
+                        <th>Месяц</th>
+                        <th>Количество прочитанных книг</th>
+                        </tr>
+                    </thead>
+                     <tbody>
+                        <% @month.each do |month_count| %>
+                        <tr>
+                            <td><%= month_count[0] %></td>
+                            <td><%= month_count[1] %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
             </div>
+        <%end%>
     </form>
  </div>

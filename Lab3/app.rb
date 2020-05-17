@@ -15,11 +15,11 @@ class App < Roda
     opts[:serve_static] = true
   end
   opts[:books] = DiaryList.new([
-                                 Diary.new('2018-03-07', 'AAA', 'BBB'),
+                                 Diary.new('2018-03-07', 'Кафка', 'Процесс'),
                                  Diary.new('2019-05-10', 'Бёрджесс', 'Заводной апельсин'),
                                  Diary.new('2020-04-05', 'Кен Кизи', 'Над кукушкиным гнездом'),
                                  Diary.new('2018-03-06', 'Бредбери', 'Вино из одуванчиков'),
-                                 Diary.new('2018-04-06', 'bbbb', 'aaa')
+                                 Diary.new('2018-04-06', 'Ремарк', 'Три товарища')
                                ])
   route do |r|
     r.public if opts[:serve_static]
@@ -45,13 +45,12 @@ class App < Roda
           end
         end
       end
-      r.on "statistics" do
+      r.on 'statistics' do
         r.get do
           opts[:books].sort_by_data
-          @book_year= opts[:books].array_year
-          @params = InputValidators.check_side_year(r.params['year'])
-          # if @params[:error].empty?
-          # end
+          @book_year = opts[:books].array_year
+          @params = InputValidators.check_side_year(r.params['year'], @book_year)
+          @month = opts[:books].array_count(r.params['year']) if @params[:error].empty?
           view('statistics')
         end
       end
