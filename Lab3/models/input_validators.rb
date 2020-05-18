@@ -74,7 +74,7 @@ module InputValidators
 
   def self.check_year(year, array_year)
     if year.empty?
-      ['Поле с отчётным годом пусто']
+      []
     elsif /\d{4}/ =~ year
       if /\d{5}/ =~ year
         ['Год должен быть формата ГГГГ']

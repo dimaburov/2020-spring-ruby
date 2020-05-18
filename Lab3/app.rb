@@ -50,7 +50,10 @@ class App < Roda
           opts[:books].sort_by_data
           @book_year = opts[:books].array_year
           @params = InputValidators.check_side_year(r.params['year'], @book_year)
-          @month = opts[:books].array_count(r.params['year']) if @params[:error].empty?
+          @month = if @params[:error].empty?
+                     opts[:books].array_count(r.params['year'])
+                   else opts[:books].hash_month
+                   end
           view('statistics')
         end
       end
