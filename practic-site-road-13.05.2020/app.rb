@@ -1,11 +1,17 @@
 require 'roda'
+require 'forme'
+
 require_relative 'lib/triangle_list.rb'
 require_relative 'lib/triangle.rb'
 require_relative 'lib/input_validators.rb'
+require_relative 'lib/dry_result_forme_adapter.rb'
+require_relative 'lib/new_test_form_shenema.rb'
+require_relative 'lib/test_filter_for_shenema.rb'
 class App < Roda
     opts[:root] = __dir__
     plugin :environments
     plugin :render
+    plugin :forme
     configure :development do
         plugin :public
         opts[:serve_static] = true
@@ -41,9 +47,15 @@ class App < Roda
         end
         r.on "triangles" do
             r.is do
-                @params = InputValidators.check_min_and_max(r.params['min'], r.params['max'])
-                pp @params[:error]
-                @filter_triangle = if @params[:error].empty?
+                @params = DryResultFormeAdapter.new(TestFormSchema.call(r.params))
+                # @params = InputValidators.check_min_and_max(r.params['min'], r.params['max'])
+                # pp @params[:error]
+                # @filtered_tests = if @params.success?
+                #     opts[:tests].filter(@params[:date], @params[:description])
+                #   else
+                #     opts[:tests].all_tests
+                #   end
+                @filter_triangle = if @params.success?
                                         opts[:index].triangles_by_area(@params[:min], @params[:max])
                                     else  
                                         opts[:index].all_triangle
@@ -52,13 +64,12 @@ class App < Roda
             end
             r.on "new" do
                 r.get do
+                    @params = {}
                     view('triangle_new')
                   end
                 r.post do
-                    @params = InputValidators.check_side_lengths(r.params['line_one'],
-                        r.params['line_two'], r.params['line_three'])
-                    pp @params[:error]
-                    if @params[:error].empty?
+                    @params = DryResultFormeAdapter.new(NewTestFormSchema.call(r.params))
+                    if @params.success?
                         opts[:index].add_triangle(Triangle.new(@params[:line_one], @params[:line_two], @params[:line_three]))
                         r.redirect '/triangles'
                     else

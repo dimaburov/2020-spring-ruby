@@ -2,9 +2,9 @@
 
 require 'roda'
 
-require_relative 'lib/diary.rb'
-require_relative 'lib/diary_list.rb'
-require_relative 'lib/input_validators.rb'
+require_relative 'models/diary.rb'
+require_relative 'models/diary_list.rb'
+require_relative 'models/input_validators.rb'
 # The core class of the web application for managing tests
 class App < Roda
   opts[:root] = __dir__
