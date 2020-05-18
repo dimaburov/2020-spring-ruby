@@ -34,7 +34,9 @@ module InputValidators
   end
 
   def self.check_month_day(date)
-    if (date.slice(5..6).to_i > 12) || date.slice(5..6).to_i <= 0
+    if date.slice(0..4).to_i > 9999
+      ['Дата должна быть передана в формате ГГГГ-ММ-ДД']
+    elsif (date.slice(5..6).to_i > 12) || date.slice(5..6).to_i <= 0
       ['Поле дата ждёт, что в году 12 месяцев, год начинается 01 месяца']
     elsif (date.slice(8..9).to_i > 31) || date.slice(8..9).to_i <= 0
       ['Поле дата ждёт, что в месяце 31 день, месяц начинается с 01 дня']
