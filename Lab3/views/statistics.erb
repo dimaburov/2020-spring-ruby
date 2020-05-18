@@ -1,60 +1,60 @@
 <div class="grid-x grid-padding-x">
-  <div class="large-12 cell">
-    <h3>Статистика чтения за год</h3>
-  </div>
-</div>
-<div class="large-12 cell">
-  <form method="get">
-        <% if @book_year.empty? %>
+    <div class="large-12 cell">
+        <h3>Статистика чтения за год</h3>
+    </div>
+    <% if @book_year.empty? %>
         <div class="large-12 cell callout">
             <p>У вас пока нет ни одной прочитанной книги</p>
         </div>
-        <% end %>
-        <% if   @params && !@params[:error].empty? %>
-        <div class="large-12 cell callout">
-            <p>При заполнении формы возникли ошибки</p>
-            <ul>
-            <% @params[:error].each do |error| %>
-                <li><%= error %></li>
-            <% end %>
-            </ul>
-        </div>
-        <% end %>
-        <div class="grid-x grid-margin-x">
-            <div class="small-1 cell">Года:</div>
-            <%@book_year.each do |year|%>
-                    <div class="small-1 cell"><%=year%></div>
-            <%end%>
-        </div>
-      <div class="grid-container">
-            <div class="grid-x grid-padding-x">
-                <label>Отчётный год
-                    <input type="text" placeholder="2020" name="year" value="<%=  @params && @params[:year] %>">
-                </label>
+    <% end %>
+    <% if   @params && !@params[:error].empty? %>
+            <div class="large-12 cell callout">
+                <p>При заполнении формы возникли ошибки</p>
+                <ul>
+                <% @params[:error].each do |error| %>
+                    <li><%= error %></li>
+                <% end %>
+                </ul>
             </div>
-        </div>
-        <div class="large-12 cell">
-            <input type="submit" value="Ввод" class="button">
-        </div>
-        <% unless   @params && !@params[:error].empty? %>
+    <% end %>
+    <div class="large-12 cell">
+        <form method="get">
+            <div class="grid-x grid-margin-x">
+                <div class="small-1 cell">Года:</div>
+                <%@book_year.each do |year|%>
+                        <div class="small-1 cell"><%=year%></div>
+                <%end%>
+            </div>
+            <div class="grid-container">
+                <div class="grid-x grid-padding-x">
+                    <label>Отчётный год
+                        <input type="text" placeholder="2020" name="year" value="<%=  @params && @params[:year] %>">
+                    </label>
+                </div>
+            </div>
             <div class="large-12 cell">
-                <table>
-                    <thead>
-                        <tr>
-                        <th>Месяц</th>
-                        <th>Количество прочитанных книг</th>
-                        </tr>
-                    </thead>
-                     <tbody>
-                        <% @month.each do |month_count| %>
-                        <tr>
-                            <td><%= month_count[0] %></td>
-                            <td><%= month_count[1] %></td>
-                        </tr>
-                        <% end %>
-                    </tbody>
-                </table>
+                <input type="submit" value="Ввод" class="button">
             </div>
-        <%end%>
-    </form>
+            <% unless   @params && !@params[:error].empty? %>
+                <div class="large-12 cell">
+                    <table>
+                        <thead>
+                            <tr>
+                            <th>Месяц</th>
+                            <th>Количество прочитанных книг</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @month.each do |month_count| %>
+                            <tr>
+                                <td><%= month_count[0] %></td>
+                                <td><%= month_count[1] %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            <%end%>
+         </form>
+    </div>
  </div>

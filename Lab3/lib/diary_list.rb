@@ -69,7 +69,18 @@ class DiaryList
     check_month1(month)
   end
 
-  def array_count(year)
+  def star_month(year)
+    month = ''
+    @books.each do |book|
+      if book.date.slice(0..3) == year
+        month = book.date.slice(5..6)
+        break
+      end
+    end
+    month
+  end
+
+  def hash_month
     months = Hash.new(0)
     (1..12).each do |hash|
       if hash > 9
@@ -78,13 +89,21 @@ class DiaryList
         months[check_month("0#{hash}")] += 0
       end
     end
-    month = ''
-    @books.each do |book|
-      if book.date.slice(0..3) == year
-        month = book.date.slice(5..6)
-        break
-      end
+    months.to_a
+  end
+
+  def check_array_of_month(months, month, count)
+    months.each do |check|
+      next unless check[0] == check_month(month)
+
+      check[1] = count
     end
+    months
+  end
+
+  def array_count(year)
+    months = hash_month
+    month = star_month(year)
     count = 0
     @books.each do |book|
       next unless book.date.slice(0..3) == year
@@ -92,11 +111,11 @@ class DiaryList
       count += 1 if book.date.slice(5..6) == month
       next if book.date.slice(5..6) == month
 
-      months[check_month(month)] += count
+      months = check_array_of_month(months, month, count)
       month = book.date.slice(5..6)
       count = 1
     end
-    months[check_month(month)] += count
+    months = check_array_of_month(months, month, count)
     months.to_a
   end
 end
