@@ -15,19 +15,26 @@ class App < Roda
     opts[:serve_static] = true
   end
   opts[:books] = DiaryList.new([
-                                 Diary.new('2018-03-07', 'Кафка', 'Процесс'),
-                                 Diary.new('2019-05-10', 'Бёрджесс', 'Заводной апельсин'),
-                                 Diary.new('2020-04-05', 'Кен Кизи', 'Над кукушкиным гнездом'),
-                                 Diary.new('2018-03-06', 'Бредбери', 'Вино из одуванчиков'),
-                                 Diary.new('2018-04-06', 'Ремарк', 'Три товарища')
+                                 Diary.new('2018-03-07', 'Кафка', 'Процесс', '5', 'Электронная книга', '12', 'dasd'),
+                                 Diary.new('2019-05-10', 'Бёрджесс', 'Заводной апельсин', '3', 'Аудио книга', '32', ' '),
+                                 Diary.new('2020-04-05', 'Кен Кизи', 'Над кукушкиным гнездом', '4', 'Бумажная книга', '12', ' '),
+                                 Diary.new('2018-03-06', 'Бредбери', 'Вино из одуванчиков', '2', 'Электронная книга', '2', 'dsad'),
+                                 Diary.new('2018-04-06', 'Ремарк', 'Три товарища', '5', 'Аудио книга', '11', 'dsad')
                                ])
   route do |r|
     r.public if opts[:serve_static]
-    r.root { r.redirect '/diary' }
+    r.root do
+      r.redirect '/diary'
+    end
     r.on 'diary' do
       r.is do
         opts[:books].sort_by_data
-        @all_books = opts[:books].all_books
+        @params = InputValidators.check_side_format(r.params['formats'])
+        @filter_books = if @params[:error]
+                          opts[:books].filte_format(@params[:formats])
+                        else
+                          opts[:books].all_books
+                         end
         view('index')
       end
       r.on 'new' do
@@ -36,9 +43,13 @@ class App < Roda
         end
         r.post do
           @params = InputValidators.check_side_lengths(r.params['author'],
-                                                       r.params['title'], r.params['date'])
+                                                       r.params['title'], r.params['date'],
+                                                       r.params['formats'], r.params['size'],
+                                                       r.params['point'], r.params['txt'])
           if @params[:error].empty?
-            opts[:books].add_books(Diary.new(@params[:date], @params[:author], @params[:title]))
+            opts[:books].add_books(Diary.new(@params[:date], @params[:author],
+                                             @params[:title], @params[:point],
+                                             @params[:formats], @params[:size], @params[:txt]))
             r.redirect '/diary'
           else
             view('new_book')

@@ -24,7 +24,7 @@ class App < Roda
     route do |r|
         r.public if opts[:serve_static]
         r.root do
-            r.redirect "//"
+            r.redirect "triangles"
         end
         # /
         r.on "/" do
@@ -48,13 +48,6 @@ class App < Roda
         r.on "triangles" do
             r.is do
                 @params = DryResultFormeAdapter.new(TestFormSchema.call(r.params))
-                # @params = InputValidators.check_min_and_max(r.params['min'], r.params['max'])
-                # pp @params[:error]
-                # @filtered_tests = if @params.success?
-                #     opts[:tests].filter(@params[:date], @params[:description])
-                #   else
-                #     opts[:tests].all_tests
-                #   end
                 @filter_triangle = if @params.success?
                                         opts[:index].triangles_by_area(@params[:min], @params[:max])
                                     else  

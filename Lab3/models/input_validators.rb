@@ -2,19 +2,91 @@
 
 # Validators for the incoming requests
 module InputValidators
-  def self.check_side_lengths(row_author, row_title, row_date)
+  def self.check_side_lengths(row_author, row_title,
+                              row_date,
+                              row_format, row_sizes,
+                              row_point, row_txt)
     author = row_author || ''
     title = row_title || ''
     date = row_date || ''
+    formats = row_format || ''
+    sizes = row_sizes || ''
+    point = row_point || ''
+    txt = row_txt || ''
+
     error = [].concat(check_author(author))
               .concat(check_title(title))
               .concat(check_date(date))
+              .concat(check_formats_size(formats, sizes))
+              .concat(point(point))
+              .concat(check_txt(txt))
     {
       author: author,
       title: title,
       date: date,
+      formats: formats,
+      sizes: sizes,
+      point: point,
+      txt: txt,
       error: error
     }
+  end
+
+  def self.check_side_format(row_formats)
+    formats = row_formats || ''
+    error = [].concat(check_format(formats))
+    {
+      formats: formats,
+      error: error
+    }
+  end
+
+  def self.check_format(formats)
+    if formats.empty?
+      ['Поле сортировки пусто']
+    else
+      []
+    end
+  end
+
+  def self.check_formats_size(formats, sizes)
+    if formats.empty?
+      ['Поле с форматом не должно быть пустым']
+    elsif formats == 'Бумажная книга'
+      check_size(sizes)
+    elsif formats == 'Электронная книга'
+      check_size(sizes)
+    elsif formats == 'Аудио книга'
+      check_size(sizes)
+    else
+      ['Формат чтения должен быть : бумажная книга, электронная , аудио']
+    end
+  end
+
+  def self.check_size(sizes)
+    if sizes.empty?
+      ['Поле с размером не должно быть пустым']
+    elsif /\d/ =~ sizes
+      []
+    else
+      ['В поле размер должно быть число']
+    end
+  end
+
+  def self.point(point)
+    if (point.to_i > 10) || point.to_i.negative?
+      ['Оценка должна быть от 0 до 10']
+    else
+      []
+    end
+  end
+
+  def self.check_txt(txt)
+    if txt.size > 2000
+      ['Размер текста должен быть не больше 2000 символов']
+    else
+      []
+    end
   end
 
   def self.check_author(author)

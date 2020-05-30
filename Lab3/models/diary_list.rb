@@ -118,4 +118,14 @@ class DiaryList
     months = check_array_of_month(months, month, count)
     months.to_a
   end
+
+  def filte_format(formats)
+    @books.each do |book|
+      p formats
+      p book.formats
+      next unless book.formats == formats
+
+      true
+    end
+  end
 end

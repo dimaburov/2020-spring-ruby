@@ -1,0 +1,26 @@
+<% form({ method: :post },{ obj: @parameters }) do |f| %>
+  <div class="grid-x grid-margin-x">
+    <div class="large-12 cell">
+      <%= f.input(:landing_date, type: :date, label: 'Дата выполнения работы', placeholder: '2015-12-10')%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:type, type: :select, label: 'Тип работы', options: LandingCoverType.all_types, add_blank: true)%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:name, type: :text, label: 'Название культуры', placeholder: 'Клубника') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:scope, type: :text, label: 'Объём работы', placeholder: '2.5') %>
+    </div>
+     <div class="large-12 cell">
+      <%= f.input(:unit, type: :select, label: 'Единица измерения объёма', options: LandingCoverUnit.all_types, add_blank: true)%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:description, type: :text, label: 'Опсиание', placeholder: 'Интересный комментарий') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.button(value: form_type, class: 'button') %>
+      <a href="<%= back_location %>" class="button secondary">Отмена</a>
+    </div>
+  </div>
+<% end %>

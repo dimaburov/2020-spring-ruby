@@ -13,21 +13,41 @@
         <a href="diary/statistics" class="button">Статистика чтения за год</a>
     </div>
     <div class="large-12 cell">
-        <table>
-        <thead>
-            <tr>
-            <th>Дата прочтения</th>
-            <th>Автора «Название»</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @all_books.each do |book| %>
-            <tr>
-                <td><%= book.date %></td>
-                <td><%= "#{book.author} «#{book.title}»" %></td>
-            </tr>
-            <% end %>
-        </tbody>
-        </table>
+       <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <label>Фильтровать по формату чтения
+                    <input type="text" placeholder="PDF" name="formats" value="<%=  @params && @params[:formats] %>">
+                </label>
+            </div>
+        </div>
+        <div class="large-12 cell">
+             <input type="submit" value="Ввод" class="button">
+        </div>
+       <% if @filter_books.empty? %>
+            <div class="callout">
+                Согласно вашему фильтру никаких треугольников не было найдено
+            </div>
+        <% else %>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Дата прочтения</th>
+                    <th>Автора «Название»</th>
+                    <th>Оценка</th>
+                    <th>Формат чтения</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @filter_books.each do |book| %>
+                    <tr>
+                        <td><%= book.date %></td>
+                        <td><%= "#{book.author} «#{book.title}»" %></td>
+                        <td><%= book.point %></td>
+                        <td><%= book.formats %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
     </div>
 </div>

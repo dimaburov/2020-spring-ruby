@@ -1,0 +1,16 @@
+<div class="grid-x">
+  <div class="cell large-12">
+    <h3>Информация о посадке</h3>
+
+    <p>Дата выполнения: <%= @landing.landing_date %></p>
+    <p>Тип работы: <%= @landing.type %></p>
+    <p>Название культуры: <%= @landing.name %></p>
+    <p>Объём работы: <%= @landing.scope %></p>
+    <p>Единица измерения обёъма: <%= @landing.unit %></p>
+    <p>Описание: <%= @landing.description %></p>
+
+    <a class="button" href="/region/<%= @landing.id %>/edit">Редактировать</a>
+    <a class="button warning" href="/region/<%= @landing.id %>/delete">Удалить</a>
+    <a class="button secondary" href="/region">Назад к списку книг</a>
+  </div>
+</div>

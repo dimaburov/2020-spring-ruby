@@ -1,0 +1,30 @@
+<div class="grid-x grid-margin-x">
+  <div class="cell large-12">
+    <h3>Список заметок о посадках</h3>
+
+    <a href="/region/new" class="button">
+      Добавить
+    </a>
+  </div>
+
+  <% if @landings.size == 0 %>
+    <div class="cell large-12 callout warning">
+      В приложении нет информации о посадках
+    </div>
+  <% else%>
+    <% @landings.each do |landing| %>
+      <div class="card cell large-4">
+        <div class="card-divider">
+          <%= landing.landing_date %>
+        </div>
+        <div class="card-section">
+          <p><%= landing.type %></p>
+          <p><%= landing.name %></p>
+          <p>
+            <a class="button" href="/region/<%= landing.id %>">Информация о посадке</a>
+          <p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
