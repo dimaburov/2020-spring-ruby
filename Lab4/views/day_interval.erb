@@ -1,0 +1,40 @@
+<div class="grid-x grid-margin-x">
+    <h3>Список поездов по заданному диапозону дней</h3>
+</div>
+<% form({ method: :get },{ obj: @parameters }) do |f| %>
+    <div class="grid-x grid-margin-x">
+    <div class="large-12 cell">
+        <%= f.input(:first_date, type: :date, label: 'От этого дня', placeholder: '2015-12-10')%>
+    </div>
+    <div class="large-12 cell">
+        <%= f.input(:second_date, type: :date, label: 'До этого дня', placeholder: '2015-12-13')%>
+    </div>
+    <div class="large-12 cell">
+        <%= f.button(value:"Фильтровать", class: 'button') %>
+        <a href='/trains' class="button secondary">Отмена</a>
+    </div>
+    </div>
+<% end %>
+<div class="grid-x grid-margin-x">
+    <% if @trains.size == 0 %>
+        <div class="cell large-12 callout warning">
+            В приложении нет информации о поездах
+        </div>
+        <% else%>
+        <% @trains.each do |train| %>
+            <div class="card cell large-4">
+            <div class="card-divider">
+                Номер поезда: <%= train[1].number %>
+            </div>
+            <div class="card-section">
+                <p>Пункт отправления: <%= train[1].point_of_departure %></p>
+                <p>Дата отправления: <%= train[1].departure_date %></p>
+                <p>Время отправления: <%= train[1].departure_time %></p>
+                <p>
+                <a class="button" href="/trains/<%= train[1].id %>">Информация о поезде</a>
+                <p>
+            </div>
+            </div>
+        <% end %>
+    <% end %>
+</div>

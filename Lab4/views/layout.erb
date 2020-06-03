@@ -1,0 +1,24 @@
+<!doctype html>
+<html class="no-js" lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инфорационная система на железнодорожном вокзале</title>
+    <link rel="stylesheet" href="/css/foundation.css">
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+  <body>
+    <div class="grid-container">
+       <ul class="menu">
+            <li><a href="/trains">Вывод по интервалу дней</a></li>
+            <li><a href="/diary/new">Добавление новой записи</a></li>
+            <li><a href="/diary/statistics">Статистика чтения за год</a></li>
+        </ul>
+      <%= yield %>
+    </div>
+    <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/vendor/what-input.js"></script>
+    <script src="/js/vendor/foundation.js"></script>
+  </body>
+</html>
