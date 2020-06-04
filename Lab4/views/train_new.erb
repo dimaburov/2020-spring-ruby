@@ -1,0 +1,35 @@
+<div class="grid-x grid-margin-x">
+  <h3>Добавление новое заметки</h3>
+</div>
+<% form({ method: :post },{ obj: @parameters }) do |f| %>
+  <div class="grid-x grid-margin-x">
+    <div class="large-12 cell">
+      <%= f.input(:number, type: :text, label: 'Номер поезда', placeholder: '120') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:point_of_departure, type: :text, label: 'Пункт отправления', placeholder: 'Вологда') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:destination, type: :text, label: 'Пункт назначения', placeholder: 'Ярославль') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:departure_date, type: :date, label: 'Дата отправления', placeholder: '2015-12-10')%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:departure_time, type: :time, label: 'Время отправления', placeholder: '12:12')%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:arrival_date, type: :date, label: 'Дата прибытия', placeholder: '2015-12-12')%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:arrival_time, type: :time, label: 'Время время прибытия', placeholder: '20:12')%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:price, type: :text, label: 'Стоимость билета', placeholder: '1500') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.button(value: 'Добавить', class: 'button') %>
+      <a href="/trains" class="button secondary">Отмена</a>
+    </div>
+  </div>
+<% end %>

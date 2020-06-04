@@ -28,10 +28,8 @@ class App < Roda
         number: 123,
         point_of_departure: 'Вологда',
         destination: 'Москва',
-        departure_date: Date.parse('2011-01-18'),
-        departure_time: '12:20',
-        date_arrival: Date.parse('2011-01-18'),
-        time_arrival: '20:12',
+        departure_date_time: Time.new(2011, 1, 18, 12, 20),
+        arrival_date_time: Time.new(2011, 1, 18, 20, 12),
         price: '1200'
       ),
       Train.new(
@@ -39,10 +37,8 @@ class App < Roda
         number: 422,
         point_of_departure: 'Воркута',
         destination: 'Ярославль',
-        departure_date: Date.parse('2013-01-14'),
-        departure_time: '2:20',
-        date_arrival: Date.parse('2013-01-16'),
-        time_arrival: '22:12',
+        departure_date_time: Time.new(2013, 1, 14, 2, 20),
+        arrival_date_time: Time.new(2013, 1, 16, 22, 12),
         price: '6200'
       )
     ]
@@ -59,25 +55,24 @@ class App < Roda
     end
     r.on 'trains' do
       r.is do
-        p time = Time.now
-        p time.hour
-        p time.min
-        p time.sec
-        p time.strftime("%H:%M")
-        p Time.new(time.year,time.mon,time.mday,time.hour,time.min,time.sec)
         @parameters = DryResultFormeWrapper.new(DateIntervalFormSchema.call(r.params))
-        if @parameters.success?
-          @trains = opts[:trains].filter_interval_date(@parameters)
-        else
-          @trains = opts[:trains].all_trains
-        end
+        @trains = if @parameters.success?
+                    opts[:trains].filter_interval_date(@parameters)
+                  else
+                    opts[:trains].all_trains
+                  end
         view('day_interval')
       end
       r.on Integer do |train_id|
-        @trains=opts[:trains].trains_by_id(train_id)
+        @trains = opts[:trains].trains_by_id(train_id)
         next if @trains.nil?
-        r.is do 
-          view('train')
+
+        r.on 'day_interval' do
+          view('information_train_day_interval')
+        end
+
+        r.on 'full_filter' do
+          view('information_train_full_filter')
         end
 
         r.on 'delete' do
@@ -111,6 +106,19 @@ class App < Roda
           else
             view('train_new')
           end
+        end
+      end
+      r.on 'filter' do
+        r.get do
+          @parameters = DryResultFormeWrapper.new(FullFilterFormSchema.call(r.params))
+          if @parameters.success?
+            p 'yes'
+            @trains = opts[:trains].full_filter(@parameters)
+          else
+            p 'no'
+            @trains = opts[:trains].all_trains
+          end
+          view('train_full_filter')
         end
       end
     end

@@ -1,23 +1,26 @@
 <div class="grid-x grid-margin-x">
-    <h3>Список поездов по заданному диапозону дней</h3>
+    <h3>Список поездов по задаваемому пункту отправления, назначения, а также дню и ограничению по стоимости</h3>
 </div>
 <% form({ method: :get },{ obj: @parameters }) do |f| %>
     <div class="grid-x grid-margin-x">
     <div class="large-12 cell">
-        <%= f.input(:first_date, type: :date, label: 'От этого дня', placeholder: '2015-12-10')%>
+      <%= f.input(:point_of_departure, type: :text, label: 'Пункт отправления', placeholder: 'Вологда') %>
     </div>
     <div class="large-12 cell">
-        <%= f.input(:second_date, type: :date, label: 'До этого дня', placeholder: '2015-12-13')%>
+      <%= f.input(:destination, type: :text, label: 'Пункт назначения', placeholder: 'Ярославль') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:departure_date, type: :date, label: 'Дата отправления', placeholder: '2015-12-10')%>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:price_min, type: :text, label: 'Минимальная стоимость билета ', placeholder: '100') %>
+    </div>
+    <div class="large-12 cell">
+      <%= f.input(:price_max, type: :text, label: 'Максимальнаястоимость билета ', placeholder: '5000') %>
     </div>
     <div class="large-12 cell">
         <%= f.button(value:"Фильтровать", class: 'button') %>
-        <a href="/trains/filter" class="button ">
-            Фильтровать по другим параметрам
-        </a>
-        <a href="/trains/new" class="button warning">
-            Добавить поезд
-        </a>
-        <a href='/trains' class="button secondary">Отмена</a>
+        <a href='/trains/filter' class="button secondary">Отмена</a>
     </div>
     </div>
 <% end %>
@@ -36,7 +39,7 @@
                 <p>Пункт отправления: <%= train[1].point_of_departure %></p>
                 <p>Дата отправления: <%= train[1].departure_date_time %></p>
                 <p>
-                <a class="button" href="/trains/<%= train[1].id %>/day_interval">Информация о поезде</a>
+                <a class="button" href="/trains/<%= train[1].id %>/full_filter">Информация о поезде</a>
                 <p>
             </div>
             </div>

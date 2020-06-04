@@ -1,0 +1,15 @@
+<div class="grid-x">
+  <div class="cell large-12">
+    <h3>Информация о поезде</h3>
+
+    <p>Номер поезда: <%= @trains.number%></p>
+    <p>Пункт отправления: <%= @trains.point_of_departure%></p>
+    <p>Пункт назначения: <%= @trains.destination %></p>
+    <p>Дата отправления: <%= @trains.departure_date_time%></p>
+    <p>Дата прибытия: <%= @trains.arrival_date_time %></p>
+    <p>Стоимость: <%= @trains.price %></p>
+
+    <a class="button warning" href="/trains/<%= @trains.id %>/delete">Удалить</a>
+    <a class="button secondary" href="<%=back_location%>">Назад к списку поездов </a>
+  </div>
+</div>
