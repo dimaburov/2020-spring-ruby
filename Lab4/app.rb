@@ -2,6 +2,7 @@
 
 require 'roda'
 require 'date'
+require 'time'
 require 'forme'
 
 require_relative 'models.rb'
@@ -58,6 +59,12 @@ class App < Roda
     end
     r.on 'trains' do
       r.is do
+        p time = Time.now
+        p time.hour
+        p time.min
+        p time.sec
+        p time.strftime("%H:%M")
+        p Time.new(time.year,time.mon,time.mday,time.hour,time.min,time.sec)
         @parameters = DryResultFormeWrapper.new(DateIntervalFormSchema.call(r.params))
         if @parameters.success?
           @trains = opts[:trains].filter_interval_date(@parameters)
@@ -65,6 +72,46 @@ class App < Roda
           @trains = opts[:trains].all_trains
         end
         view('day_interval')
+      end
+      r.on Integer do |train_id|
+        @trains=opts[:trains].trains_by_id(train_id)
+        next if @trains.nil?
+        r.is do 
+          view('train')
+        end
+
+        r.on 'delete' do
+          r.get do
+            @parameters = {}
+            view('train_delete')
+          end
+
+          r.post do
+            @parameters = DryResultFormeWrapper.new(TrainDeleteSchema.call(r.params))
+            if @parameters.success?
+              opts[:trains].delete_trains(@trains.id)
+              r.redirect('/trains')
+            else
+              view('train_delete')
+            end
+          end
+        end
+      end
+      r.on 'new' do
+        r.get do
+          @parameters = {}
+          view('train_new')
+        end
+
+        r.post do
+          @parameters = DryResultFormeWrapper.new(TrainNewFormSchema.call(r.params))
+          if @parameters.success?
+            train_id = opts[:trains].add_trains(@parameters)
+            r.redirect "/trains/#{train_id}"
+          else
+            view('train_new')
+          end
+        end
       end
     end
   end
