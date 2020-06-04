@@ -1,0 +1,22 @@
+<div class="grid-x grid-margin-x">
+    <% if @cities.size == 0 %>
+        <div class="cell large-12 callout warning">
+            Таких городов не найдено
+        </div>
+        <% else%>
+         <table>
+                <thead>
+                    <tr>
+                    <th>Название городов</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @cities.each do |city| %>
+                    <tr>
+                        <td><%= city %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+         </table>      
+    <% end %>
+</div>

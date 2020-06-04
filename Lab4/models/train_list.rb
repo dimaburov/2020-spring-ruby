@@ -106,4 +106,31 @@ class TrainList
       false
     end
   end
+
+  def check_live_city
+    city = []
+    @trains.each do |train|
+      next if check_destination(train)
+
+      city.append(train[1].destination)
+    end
+    city.uniq
+  end
+
+  def check_destination(train)
+    flag = false
+    @trains.each do |tr|
+      flag = true if tr[1].point_of_departure == train[1].destination
+    end
+    flag
+  end
+
+  def all_cities
+    city = []
+    @trains.each do |train|
+      city.append(train[1].point_of_departure)
+      city.append(train[1].destination)
+    end
+    city.uniq
+  end
 end

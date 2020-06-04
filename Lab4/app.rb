@@ -40,6 +40,24 @@ class App < Roda
         departure_date_time: Time.new(2013, 1, 14, 2, 20),
         arrival_date_time: Time.new(2013, 1, 16, 22, 12),
         price: '6200'
+      ),
+      Train.new(
+        id: 13,
+        number: 332,
+        point_of_departure: 'Ярославль',
+        destination: 'Москва',
+        departure_date_time: Time.new(2013, 3, 14, 2, 20),
+        arrival_date_time: Time.new(2013, 3, 14, 4, 12),
+        price: '100'
+      ),
+      Train.new(
+        id: 14,
+        number: 313,
+        point_of_departure: 'Вологда',
+        destination: 'Пермь',
+        departure_date_time: Time.new(2018, 3, 14, 2, 2),
+        arrival_date_time: Time.new(2018, 3, 16, 3, 23),
+        price: '5000'
       )
     ]
   )
@@ -62,6 +80,18 @@ class App < Roda
                     opts[:trains].all_trains
                   end
         view('day_interval')
+      end
+      r.on 'live_the_city' do
+        r.get do
+          @cities = opts[:trains].check_live_city
+          view('live_the_city')
+        end
+      end
+      r.on 'all_cities' do
+        r.get do
+          @cities = opts[:trains].all_cities
+          view('all_cities')
+        end
       end
       r.on Integer do |train_id|
         @trains = opts[:trains].trains_by_id(train_id)
@@ -111,13 +141,11 @@ class App < Roda
       r.on 'filter' do
         r.get do
           @parameters = DryResultFormeWrapper.new(FullFilterFormSchema.call(r.params))
-          if @parameters.success?
-            p 'yes'
-            @trains = opts[:trains].full_filter(@parameters)
-          else
-            p 'no'
-            @trains = opts[:trains].all_trains
-          end
+          @trains = if @parameters.success?
+                      opts[:trains].full_filter(@parameters)
+                    else
+                      opts[:trains].all_trains
+                    end
           view('train_full_filter')
         end
       end
