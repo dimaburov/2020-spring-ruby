@@ -9,7 +9,7 @@
     <p>Дата прибытия: <%= @trains.arrival_date_time %></p>
     <p>Стоимость: <%= @trains.price %></p>
 
-    <a class="button warning" href="/trains/<%= @trains.id %>/delete">Удалить</a>
+    <a class="button warning" href="<%= path(@trains, 'delete') %>">Удалить</a>
     <a class="button secondary" href="<%=back_location%>">Назад к списку поездов </a>
   </div>
 </div>

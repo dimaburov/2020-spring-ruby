@@ -11,19 +11,7 @@
     </div>
     <div class="large-12 cell">
         <%= f.button(value:"Фильтровать", class: 'button') %>
-        <a href="/trains/filter" class="button ">
-            Фильтровать по другим параметрам
-        </a>
-        <a href="/trains/live_the_city" class="button ">
-            Города из которых не уехать
-        </a>
-        <a href="/trains/all_cities" class="button ">
-            Все города
-        </a>
-        <a href="/trains/new" class="button warning">
-            Добавить поезд
-        </a>
-        <a href='/trains' class="button secondary">Отмена</a>
+        <a href="<%= trains_path%>" class="button secondary">Отмена</a>
     </div>
     </div>
 <% end %>
@@ -42,7 +30,7 @@
                 <p>Пункт отправления: <%= train[1].point_of_departure %></p>
                 <p>Дата отправления: <%= train[1].departure_date_time %></p>
                 <p>
-                <a class="button" href="/trains/<%= train[1].id %>/day_interval">Информация о поезде</a>
+                <a class="button" href="<%= path(train[1], 'day_interval') %>">Информация о поезде</a>
                 <p>
             </div>
             </div>

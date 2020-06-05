@@ -41,7 +41,7 @@ class TrainList
                                   parameters[:arrival_time].min),
       price: parameters[:price]
     )
-    train_id
+    @trains[train_id]
   end
 
   def delete_trains(id)
@@ -132,5 +132,67 @@ class TrainList
       city.append(train[1].destination)
     end
     city.uniq
+  end
+
+  def max_path(parameters)
+    max = 0
+    train_filter = @trains.to_a.select do |train|
+      next unless check_date(parameters, train) || check_date_destination(parameters, train)
+
+      if parameters[:city] == train[1].point_of_departure
+        true
+      elsif parameters[:city] == train[1].destination
+        true
+      else next
+      end
+    end
+    train_filter.each do |train|
+      max_check = check_path(train, train_filter, parameters)
+      max = max_check if max_check > max
+    end
+    max
+  end
+
+  def check_path(train, train_filter, parameters)
+    count = 0
+    min_max = period_of_time(train, parameters)
+    train_filter.each do |tr|
+      min_max_sravn = period_of_time(tr, parameters)
+      if min_max[0] <= min_max_sravn[0] && min_max[1] >= min_max_sravn[0]
+        count += 1
+      elsif  min_max[0] <= min_max_sravn[1] && min_max[1] >= min_max_sravn[1]
+        count += 1
+      end
+    end
+    count
+  end
+
+  def period_of_time(train, parameters)
+    min_max = []
+    if check_date(parameters, train)
+      if parameters[:city] == train[1].point_of_departure
+        min_max.append(train[1].departure_date_time - (60 * 30))
+        min_max.append(train[1].departure_date_time)
+      end
+    end
+    if check_date_destination(parameters, train)
+      if parameters[:city] == train[1].destination
+        min_max.append(train[1].arrival_date_time)
+        min_max.append(train[1].arrival_date_time + (60 * 30))
+      end
+    end
+    min_max
+  end
+
+  def check_date_destination(parameters, train)
+    if train[1].arrival_date_time.year == parameters[:departure_date].year
+      if train[1].arrival_date_time.mon == parameters[:departure_date].mon
+        train[1].arrival_date_time.mday == parameters[:departure_date].mday
+      else
+        false
+      end
+    else
+      false
+    end
   end
 end

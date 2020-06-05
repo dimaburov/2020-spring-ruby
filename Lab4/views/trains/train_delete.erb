@@ -11,7 +11,7 @@
     </div>
     <div class="large-12 cell">
       <%= f.button(value: 'Удалить', class: 'button warning') %>
-      <a href="/trains/<%= @trains.id %>" class="button secondary">Отмена</a>
+      <a href="<%= path(@trains, 'day_interval') %>" class="button secondary">Отмена</a>
     </div>
   </div>
 <% end %>

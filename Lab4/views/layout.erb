@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
-    <div class="grid-container">
-       <ul class="menu">
-            <li><a href="/trains">Вывод по интервалу дней</a></li>
-            <li><a href="/diary/new">Добавление новой записи</a></li>
-            <li><a href="/diary/statistics">Статистика чтения за год</a></li>
+    <div class="top-bar" id="example-animated-menu" data-animate="hinge-in-from-top spin-out">
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li class="menu-text">Site Title</li>
+          <li><a href="/trains">Вывод по интервалу дней</a></li>
+          <li><a href="/trains/filter">Вывод по другим параметрам</a></li>
+          <li><a href="/trains/new">Добавить поезд</a></li>
+          <li><a href="/cities/all_cities">Все города с железнодорожным сообещнием</a></li>
+          <li><a href="/cities/live_the_city">Города из которых не уехать</a></li>
+          <li><a href="/cities/max_path">Максимальное количество путей</a></li>
         </ul>
+      </div>
+    </div>
+    <div class="grid-container">
       <%= yield %>
     </div>
     <script src="/js/vendor/jquery.js"></script>

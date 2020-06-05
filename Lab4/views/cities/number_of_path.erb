@@ -1,0 +1,39 @@
+<% form({ method: :get },{ obj: @parameters }) do |f| %>
+    <div class="grid-x grid-margin-x">
+    <div class="large-12 cell">
+        <%= f.input(:city, type: :text, label: 'Название города', placeholder: 'Вологда')%>
+    </div>
+    <div class="large-12 cell">
+        <%= f.input(:departure_date, type: :date, label: 'Выберете дату', placeholder: '2015-12-13')%>
+    </div>
+    <div class="large-12 cell">
+        <%= f.button(value:"Фильтровать", class: 'button') %>
+        <a href="<%= trains_path%>" class="button warning">Вернутсья к поездам</a>
+        <a href="<%= cities_max_path%>" class="button secondary">Отмена</a>
+    </div>
+    </div>
+<% end %>
+<div class="grid-x grid-margin-x">
+    <% if @max_path == 0 %>
+        <div class="cell large-12 callout warning">
+            В этом городе в указанный день не было поездов 
+        </div>
+        <% else%>
+        <table>
+            <thead>
+                <tr>
+                <th>Название города</th>
+                <th>Дата</th>
+                <th>Максимальное количество путей</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= @parameters[:city] %></td>
+                    <td><%= @parameters[:departure_date] %></td>
+                    <td><%= @max_path %></td>
+                </tr>
+            </tbody>
+        </table>      
+<% end %>
+</div>
