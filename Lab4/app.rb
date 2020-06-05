@@ -24,46 +24,8 @@ class App < Roda
   require_relative 'routes/trains.rb'
   require_relative 'routes/cities.rb'
 
-  opts[:trains] = TrainList.new(
-    [
-      Train.new(
-        id: 12,
-        number: 123,
-        point_of_departure: 'Вологда',
-        destination: 'Москва',
-        departure_date_time: Time.new(2011, 1, 18, 12, 20),
-        arrival_date_time: Time.new(2011, 1, 18, 20, 12),
-        price: '1200'
-      ),
-      Train.new(
-        id: 1,
-        number: 422,
-        point_of_departure: 'Воркута',
-        destination: 'Ярославль',
-        departure_date_time: Time.new(2013, 1, 14, 2, 20),
-        arrival_date_time: Time.new(2013, 1, 16, 22, 12),
-        price: '6200'
-      ),
-      Train.new(
-        id: 13,
-        number: 332,
-        point_of_departure: 'Ярославль',
-        destination: 'Москва',
-        departure_date_time: Time.new(2011, 1, 18, 2, 20),
-        arrival_date_time: Time.new(2011, 1, 18, 4, 12),
-        price: '100'
-      ),
-      Train.new(
-        id: 14,
-        number: 313,
-        point_of_departure: 'Москва',
-        destination: 'Пермь',
-        departure_date_time: Time.new(2011, 1, 18, 4, 20),
-        arrival_date_time: Time.new(2011, 1, 22, 3, 23),
-        price: '5000'
-      )
-    ]
-  )
+  opts[:store] = Store.new
+  opts[:trains] = opts[:store].train_list
 
   status_handler(404) do
     view('not_found')

@@ -1,0 +1,30 @@
+---
+:train_list:
+- :id: 1
+  :number: 120
+  :point_of_departure: Вологда
+  :destination: Москва
+  :departure_date_time: 2018-01-18 12:20:00.000000000 +03:00
+  :arrival_date_time: 2018-01-18 20:30:00.000000000 +03:00
+  :price: 1212
+- :id: 2
+  :number: 422
+  :point_of_departure: Воркута
+  :destination: Ярославль
+  :departure_date_time: 2018-01-14 02:20:00.000000000 +03:00
+  :arrival_date_time: 0218-01-16 22:12:00.000000000 +03:00
+  :price: 6200
+- :id: 3
+  :number: 322
+  :point_of_departure: Ярославль
+  :destination: Москва
+  :departure_date_time: 2018-01-18 02:20:00.000000000 +03:00
+  :arrival_date_time: 2018-01-18 04:12:00.000000000 +03:00
+  :price: 1000
+- :id: 4
+  :number: 313
+  :point_of_departure: Москва
+  :destination: Пермь
+  :departure_date_time: 2018-01-18 04:20:00.000000000 +03:00
+  :arrival_date_time: 2018-01-22 03:23:00.000000000 +03:00
+  :price: 5000

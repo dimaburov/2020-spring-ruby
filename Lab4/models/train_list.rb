@@ -14,12 +14,16 @@ class TrainList
     @trains
   end
 
+  def all_real_trains
+    @trains.values
+  end
+
   def trains_by_id(id)
     @trains[id]
   end
 
   def add_trains(parameters)
-    train_id = if @trains.nil?
+    train_id = if @trains.empty?
                  1
                else
                  @trains.keys.max + 1
@@ -42,6 +46,10 @@ class TrainList
       price: parameters[:price]
     )
     @trains[train_id]
+  end
+
+  def add_real_trains(train)
+    @trains[train.id] = train
   end
 
   def delete_trains(id)
