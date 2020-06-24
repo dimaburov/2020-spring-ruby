@@ -12,13 +12,15 @@ GEM
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
+    eventmachine (1.2.7)
     eventmachine (1.2.7-x64-mingw32)
+    ffi (1.12.2)
     ffi (1.12.2-x64-mingw32)
     http_parser.rb (0.6.0)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-livereload (0.3.17)
       rack
     rb-fsevent (0.10.3)
@@ -26,6 +28,7 @@ GEM
       ffi (~> 1.0)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
