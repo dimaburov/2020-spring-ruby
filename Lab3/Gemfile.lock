@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
+    ffi (1.12.2)
     ffi (1.12.2-x64-mingw32)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -19,7 +20,7 @@ GEM
       ffi (~> 1.0)
     rerun (0.13.0)
       listen (~> 3.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     roda (3.31.0)
       rack
     rubocop (0.83.0)
@@ -35,6 +36,7 @@ GEM
     wdm (0.1.1)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
