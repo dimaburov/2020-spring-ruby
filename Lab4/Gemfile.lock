@@ -34,6 +34,7 @@ GEM
       dry-equalizer (~> 0.3)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
+    ffi (1.13.0)
     ffi (1.13.0-x64-mingw32)
     forme (1.11.0)
     listen (3.2.1)
@@ -50,7 +51,7 @@ GEM
     regexp_parser (1.7.0)
     rerun (0.13.0)
       listen (~> 3.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     roda (3.32.0)
       rack
     rubocop (0.85.0)
@@ -69,6 +70,7 @@ GEM
     unicode-display_width (1.7.0)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
